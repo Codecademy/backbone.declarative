@@ -30,6 +30,7 @@
     constructor: function () {
       _View.apply(this, Array.prototype.slice.call(arguments));
       this.bindModelEvents();
+      this.bindCollectionEvents();
     }
 
   , _bindDeclarativeEvents: function (prop, events) {
@@ -52,23 +53,23 @@
 
   , bindModelEvents: function (modelEvents) {
       if (!(modelEvents || (modelEvents = getValue(this, 'modelEvents')))) return;
-      if (!this.model) throw new Erorr('View model does not exist');
-      this.unBindModelEvents();
-      this.bindDeclarativeEvents('model', modelEvents);
+      if (!this.model) throw new Error('View model does not exist');
+      this.unbindModelEvents();
+      this._bindDeclarativeEvents('model', modelEvents);
     }
 
-  , unBindModelEvents: function () {
+  , unbindModelEvents: function () {
       this._unbindDeclarativeEvents('model')
     }
 
   , bindCollectionEvents: function (collectionEvents) {
       if (!(collectionEvents || (collectionEvents = getValue(this, 'collectionEvents')))) return;
-      if (!this.collection) throw new Erorr('View collection does not exist'); 
-      this.unBindCollectionEvents();
-      this.bindDeclerativeEvents('collection', collectionEvents);
+      if (!this.collection) throw new Error('View collection does not exist'); 
+      this.unbindCollectionEvents();
+      this._bindDeclarativeEvents('collection', collectionEvents);
     }
     
-  , unBindCollectionEvents: function () {
+  , unbindCollectionEvents: function () {
       this._unbindDeclarativeEvents('collection');
     }
   });
