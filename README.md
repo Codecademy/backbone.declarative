@@ -11,13 +11,16 @@ Example:
 ```javascript
 var Section = Backbone.View.extend({
   collectionEvents: {
-    add: 'addNewExercise'
-  , remove: 'removeNewExercise'
+    'add': 'addNewExercise'
+  , 'remove': 'removeNewExercise'
   }
 
   modelEvents: {
     'change:programming_language': 'onProgLangChange'
   }
+  .
+  .
+  .
 });
 ```
 
