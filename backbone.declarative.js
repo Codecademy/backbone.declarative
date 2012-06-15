@@ -20,7 +20,6 @@
   };
 
   var _View = Backbone.View
-    , modelEventSplitter = /^(\S+)\s*(.*)$/
     , viewMethods = {
         model: {}
       , collection: {}
@@ -59,7 +58,7 @@
     }
 
   , unbindModelEvents: function () {
-      this._unbindDeclarativeEvents('model')
+      this._unbindDeclarativeEvents('model');
     }
 
   , bindCollectionEvents: function (collectionEvents) {
