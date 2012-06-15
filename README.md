@@ -2,6 +2,11 @@
 
 A Backbone plugin that adds declarative model and collection event binding to Backbone Views.
 
+## Running the tests
+
+    npm install
+    open test/test.html
+
 ## Usage
 
 When extending a view just specify your declarative `modelEvents` and `collectionEvents`.  
