@@ -2,7 +2,26 @@
 
 A Backbone plugin that adds declarative model and collection event binding to Backbone Views.
 
-## Example
+## Usage
+
+When extending a view just specify your declarative `modelEvents` and `collectionEvents`.  
+
+Example:
+
+```javascript
+var Section = Backbone.View.extend({
+  collectionEvents: {
+    add: 'addNewExercise'
+  , remove: 'removeNewExercise'
+  }
+
+  modelEvents: {
+    'change:programming_language': 'onProgLangChange'
+  }
+});
+```
+
+## Usage in Todos example
 
 The following is part of the TodoView class definition from the famous [Todos Example](http://backbonejs.org/docs/todos.html).  
 ```javascript
