@@ -4,7 +4,7 @@ A Backbone plugin that adds declarative model and collection event binding to Ba
 
 ## Example
 
-The following is part of the TodoView class definition from the famous (Todos Example)[http://backbonejs.org/docs/todos.html].  
+The following is part of the TodoView class definition from the famous [Todos Example](http://backbonejs.org/docs/todos.html).  
 ```javascript
   var TodoView = Backbone.View.extend({
 
