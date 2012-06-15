@@ -12,7 +12,7 @@ Example:
 var Section = Backbone.View.extend({
   collectionEvents: {
     'add': 'addNewExercise'
-  , 'remove': 'removeNewExercise'
+  , 'remove': 'removeExercise'
   }
 
   modelEvents: {
