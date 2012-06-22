@@ -46,6 +46,7 @@
   , _unbindDeclarativeEvents: function (prop) {
       var methods = viewMethods[prop][this.cid];
       if (!methods) return;
+      var method;
       while (method = methods.pop()) this[prop].off(null, method, this);
       delete viewMethods[prop][this.cid];
     }
