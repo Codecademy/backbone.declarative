@@ -12,13 +12,6 @@
     if (!Backbone) throw new Error('Can\'t find Backbone');
   }
 
-  // Helper function to get a value from a Backbone object as a property
-  // or as a function.
-  var getValue = function(object, prop) {
-    if (!(object && object[prop])) return null;
-    return _.isFunction(object[prop]) ? object[prop]() : object[prop];
-  };
-
   var _View = Backbone.View
     , viewMethods = {
         model: {}
@@ -52,7 +45,7 @@
     }
 
   , bindModelEvents: function (modelEvents) {
-      if (!(modelEvents || (modelEvents = getValue(this, 'modelEvents')))) return;
+      if (!(modelEvents || (modelEvents = _.result(this, 'modelEvents')))) return;
       if (!this.model) throw new Error('View model does not exist');
       this.unbindModelEvents();
       this._bindDeclarativeEvents('model', modelEvents);
@@ -63,7 +56,7 @@
     }
 
   , bindCollectionEvents: function (collectionEvents) {
-      if (!(collectionEvents || (collectionEvents = getValue(this, 'collectionEvents')))) return;
+      if (!(collectionEvents || (collectionEvents = _.result(this, 'collectionEvents')))) return;
       if (!this.collection) throw new Error('View collection does not exist'); 
       this.unbindCollectionEvents();
       this._bindDeclarativeEvents('collection', collectionEvents);
