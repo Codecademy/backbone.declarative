@@ -25,6 +25,13 @@
       this.bindCollectionEvents();
     }
 
+  , remove: function () {
+      _View.prototype.remove.call(this);
+      this.unbindModelEvents();
+      this.unbindCollectionEvents();
+      return this;
+    }
+
   , _bindDeclarativeEvents: function (prop, events) {
       var methods = (viewMethods[prop][this.cid] || (viewMethods[prop][this.cid] = []));
       for (var eventName in events) {
