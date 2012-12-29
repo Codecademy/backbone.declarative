@@ -22,11 +22,12 @@ $(function () {
   test('View: bindModelEvents', function () {
     var count = 0;
     view.bindModelEvents({
-      'change:foo': function (m, v, changed) {
+      'change:foo': function (m, v, options) {
+          var changed = m.changedAttributes();
           equal(this, view);
           equal(m, model);
           equal(v, 'bar');
-          deepEqual(changed, {changes: {foo: true}});
+          deepEqual(changed, {foo: 'bar'});
           count++;
         }
       , 'change': function () {
@@ -60,11 +61,12 @@ $(function () {
   test('View: bindCollectionEvents', function () {
     var count = 0;
     view.bindCollectionEvents({
-      'change:foo': function (m, v, changed) {
+      'change:foo': function (m, v, options) {
+          var changed = m.changedAttributes();
           equal(this, view);
           equal(m, model);
           equal(v, 'bar');
-          deepEqual(changed, {changes: {foo: true}});
+          deepEqual(changed, {foo: 'bar'});
           count++;
         }
       , 'change': function () {
