@@ -25,29 +25,23 @@
       this.bindCollectionEvents();
     }
 
-  , remove: function () {
-      _View.prototype.remove.call(this);
-      this.unbindModelEvents();
-      this.unbindCollectionEvents();
-      return this;
-    }
-
   , _bindDeclarativeEvents: function (prop, events) {
-      var methods = (viewMethods[prop][this.cid] || (viewMethods[prop][this.cid] = []));
+      var methods = (viewMethods[prop][this.cid] || (viewMethods[prop][this.cid] = {}));
       for (var eventName in events) {
         var method = events[eventName];
         if (!_.isFunction(method)) method = this[events[eventName]];
         if (!method) throw new Error('Method "' + events[eventName] + '" does not exist');
-        methods.push(method);
-        this[prop].on(eventName, method, this);
+        methods[eventName] = method;
+        this.listenTo(this[prop], eventName, method);
       }
     }
 
   , _unbindDeclarativeEvents: function (prop) {
       var methods = viewMethods[prop][this.cid];
       if (!methods) return;
-      var method;
-      while (method = methods.pop()) this[prop].off(null, method, this);
+      _(methods).each(function(method, eventName, methods) {
+        this.stopListening(this[prop], eventName, method);
+      }, this);
       delete viewMethods[prop][this.cid];
     }
 
