@@ -32,16 +32,14 @@
         if (!_.isFunction(method)) method = this[events[eventName]];
         if (!method) throw new Error('Method "' + events[eventName] + '" does not exist');
         methods[eventName] = method;
-        this.listenTo(this[prop], eventName, method);
       }
+      this.listenTo(this[prop], methods);
     }
 
   , _unbindDeclarativeEvents: function (prop) {
       var methods = viewMethods[prop][this.cid];
       if (!methods) return;
-      _(methods).each(function(method, eventName, methods) {
-        this.stopListening(this[prop], eventName, method);
-      }, this);
+      this.stopListening(this[prop], methods);
       delete viewMethods[prop][this.cid];
     }
 
