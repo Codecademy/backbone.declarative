@@ -26,21 +26,20 @@
     }
 
   , _bindDeclarativeEvents: function (prop, events) {
-      var methods = (viewMethods[prop][this.cid] || (viewMethods[prop][this.cid] = []));
+      var methods = (viewMethods[prop][this.cid] || (viewMethods[prop][this.cid] = {}));
       for (var eventName in events) {
         var method = events[eventName];
         if (!_.isFunction(method)) method = this[events[eventName]];
         if (!method) throw new Error('Method "' + events[eventName] + '" does not exist');
-        methods.push(method);
-        this[prop].on(eventName, method, this);
+        methods[eventName] = method;
       }
+      this.listenTo(this[prop], methods);
     }
 
   , _unbindDeclarativeEvents: function (prop) {
       var methods = viewMethods[prop][this.cid];
       if (!methods) return;
-      var method;
-      while (method = methods.pop()) this[prop].off(null, method, this);
+      this.stopListening(this[prop], methods);
       delete viewMethods[prop][this.cid];
     }
 

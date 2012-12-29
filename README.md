@@ -4,8 +4,8 @@ A Backbone plugin that adds declarative model and collection event binding to Ba
 
 ## Running the tests
 
-    npm install
-    open test/test.html
+    git submodule update --init --recursive
+    open test/index.html
 
 ## Usage
 
@@ -23,63 +23,54 @@ var Section = Backbone.View.extend({
   modelEvents: {
     'change:programming_language': 'onProgLangChange'
   }
-  .
-  .
-  .
+  ...
 });
 ```
+
+The events will automatically be cleaned up when the view's `remove` or
+`stopListening` methods are called.
 
 ## Usage in Todos example
 
 The following is part of the TodoView class definition from the famous [Todos Example](http://backbonejs.org/docs/todos.html).  
 ```javascript
-  var TodoView = Backbone.View.extend({
+var TodoView = Backbone.View.extend({
+  template: _.template($('#item-template').html()),
 
-    tagName:  "li",
+  events: {
+    "click .toggle"   : "toggleDone",
+    "dblclick .view"  : "edit",
+    "click a.destroy" : "clear",
+    "keypress .edit"  : "updateOnEnter",
+    "blur .edit"      : "close"
+  },
 
-    template: _.template($('#item-template').html()),
-
-    events: {
-      "click .toggle"   : "toggleDone",
-      "dblclick .view"  : "edit",
-      "click a.destroy" : "clear",
-      "keypress .edit"  : "updateOnEnter",
-      "blur .edit"      : "close"
-    },
-
-    initialize: function() {
-      this.model.bind('change', this.render, this);
-      this.model.bind('destroy', this.remove, this);
-    },
-    .
-    .
-    .
+  initialize: function() {
+    this.listenTo(this.model, 'change', this.render);
+    this.listenTo(this.model, 'destroy', this.remove);
+  },
+  ...
 ```
 
 
 Using Backbone.declarative it becomes:
 ```javascript
-  var TodoView = Backbone.View.extend({
+var TodoView = Backbone.View.extend({
+  template: _.template($('#item-template').html()),
 
-    tagName:  "li",
+  events: {
+    "click .toggle"   : "toggleDone",
+    "dblclick .view"  : "edit",
+    "click a.destroy" : "clear",
+    "keypress .edit"  : "updateOnEnter",
+    "blur .edit"      : "close"
+  },
 
-    template: _.template($('#item-template').html()),
-
-    events: {
-      "click .toggle"   : "toggleDone",
-      "dblclick .view"  : "edit",
-      "click a.destroy" : "clear",
-      "keypress .edit"  : "updateOnEnter",
-      "blur .edit"      : "close"
-    },
-
-    modelEvents: {
-      'change': 'render'
-    , 'destroy': 'remove'
-    }
-    .
-    .
-    .
+  modelEvents: {
+    'change': 'render'
+  , 'destroy': 'remove'
+  }
+  ...
 ```
 
 ## API
@@ -104,4 +95,6 @@ Same as `bindModelEvents` but for collections.
 
 ## License
 MIT License.  
-Copyright (c) 2012 Amjad Masad &lt;amjad@codecademy.com&gt; Ryzac, Inc.
+Copyright (c) 2012 Amjad Masad <amjad@codecademy.com> Ryzac, Inc.
+
+Contributors: [philfreo](https://github.com/philfreo)
