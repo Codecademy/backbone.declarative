@@ -12,11 +12,7 @@
     if (!Backbone) throw new Error('Can\'t find Backbone');
   }
 
-  var _View = Backbone.View
-    , viewMethods = {
-        model: {}
-      , collection: {}
-      };
+  var _View = Backbone.View;
 
   Backbone.View = _View.extend({
     constructor: function () {
@@ -26,7 +22,8 @@
     }
 
   , _bindDeclarativeEvents: function (prop, events) {
-      var methods = (viewMethods[prop][this.cid] || (viewMethods[prop][this.cid] = {}));
+      var cacheName = '_' + prop + 'Events';
+      var methods = (this[cacheName] || (this[cacheName] = {}));
       for (var eventName in events) {
         var method = events[eventName];
         if (!_.isFunction(method)) method = this[events[eventName]];
@@ -37,10 +34,9 @@
     }
 
   , _unbindDeclarativeEvents: function (prop) {
-      var methods = viewMethods[prop][this.cid];
+      var methods = this['_' + prop + 'Events'];
       if (!methods) return;
       this.stopListening(this[prop], methods);
-      delete viewMethods[prop][this.cid];
     }
 
   , bindModelEvents: function (modelEvents) {
