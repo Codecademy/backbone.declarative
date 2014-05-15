@@ -34,9 +34,11 @@
     }
 
   , _unbindDeclarativeEvents: function (prop) {
-      var methods = this['_' + prop + 'Events'];
+      var cacheName = '_' + prop + 'Events';
+      var methods = this[cacheName];
       if (!methods) return;
       this.stopListening(this[prop], methods);
+      delete this[cacheName];
     }
 
   , bindModelEvents: function (modelEvents) {
