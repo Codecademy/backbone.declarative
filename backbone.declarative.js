@@ -16,7 +16,7 @@
 
   Backbone.View = _View.extend({
     constructor: function () {
-      _View.apply(this, Array.prototype.slice.call(arguments));
+      _View.apply(this, arguments);
       this.bindModelEvents();
       this.bindCollectionEvents();
     }
