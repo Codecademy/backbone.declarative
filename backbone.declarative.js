@@ -54,11 +54,11 @@
 
   , bindCollectionEvents: function (collectionEvents) {
       if (!(collectionEvents || (collectionEvents = _.result(this, 'collectionEvents')))) return;
-      if (!this.collection) throw new Error('View collection does not exist'); 
+      if (!this.collection) throw new Error('View collection does not exist');
       this.unbindCollectionEvents();
       this._bindDeclarativeEvents('collection', collectionEvents);
     }
-    
+
   , unbindCollectionEvents: function () {
       this._unbindDeclarativeEvents('collection');
     }
