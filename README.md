@@ -95,6 +95,6 @@ Same as `bindModelEvents` but for collections.
 
 ## License
 MIT License.  
-Copyright (c) 2012 Amjad Masad <amjad@codecademy.com> Ryzac, Inc.
+Copyright (c) 2022 Codecademy LLC
 
 Contributors: [philfreo](https://github.com/philfreo)
